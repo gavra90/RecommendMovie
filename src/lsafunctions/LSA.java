@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package lsafunctions;
 
+import java.util.HashMap;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 
@@ -14,7 +14,8 @@ import org.apache.commons.math3.linear.RealMatrix;
  * @author Gavra
  */
 public class LSA {
-     public static double cosinSim(int v1, int v2, RealMatrix Vt) {
+
+    public static double cosinSim(int v1, int v2, RealMatrix Vt) {
         double sim = 0.0;
         double sumNum = 0.0;
         double fdenom = 0.0;
@@ -37,7 +38,7 @@ public class LSA {
         double ndf;
         for (int j = 0; j < M.getRowDimension(); j++) {
 
-            df = calcDf(j,M);
+            df = calcDf(j, M);
             // System.out.println("J:"+j+"  df:"+df);
 
             for (int k = 0; k < M.getColumnDimension(); k++) {
@@ -48,7 +49,7 @@ public class LSA {
             }
         }
         //M.print(NumberFormat.INTEGER_FIELD, M.getColumnDimension());
-        M=normalizeMatrix(M);
+        M = normalizeMatrix(M);
         return M;
     }
 
@@ -58,7 +59,7 @@ public class LSA {
             if (M.getEntry(nRow, j) != 0) {
                 df++;
             }
-        }        
+        }
         return df;
     }
 
@@ -81,5 +82,15 @@ public class LSA {
         }
         return M;
     }
-    
+
+    private static HashMap addToDicry(String[] listLema1, HashMap dicry, int i) {
+        for (String item : listLema1) {
+            if (!dicry.containsValue(item.toLowerCase())) {
+                dicry.put(i, item.toLowerCase());
+                i++;
+            }
+        }
+        return dicry;
+    }
+
 }
